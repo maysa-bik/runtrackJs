@@ -1,0 +1,15 @@
+body {
+    min-height: 4096px; /* Définit la taille minimale du corps de la page à 4096px */
+    margin: 0; /* Supprime les marges par défaut du corps */
+    padding: 0; /* Supprime les rembourrages par défaut du corps */
+}
+
+footer {
+    position: fixed; /* Fixe le footer en bas de la fenêtre */
+    left: 0; /* Aligne le footer sur la gauche */
+    bottom: 0; /* Aligne le footer en bas de la fenêtre */
+    width: 100%; /* Définit la largeur du footer sur 100% de la fenêtre */
+    height: 20px; /* Définit une hauteur pour le footer */
+    background-color: #ccc; /* Couleur de fond par défaut */
+    transition: background-color 0.3s; /* Ajoute une transition fluide pour la couleur de fond */
+}
