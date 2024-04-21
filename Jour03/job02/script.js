@@ -2,11 +2,13 @@ $(document).ready(function() {
     // Sélection du bouton de mélange et du conteneur d'images
     var shuffleButton = $("#shuffleButton");
     var container = $("#container");
+    var images = container.children(); // Sélectionnez toutes les images une seule fois
+
+    // Booléen pour suivre si l'utilisateur a commencé à déplacer les images
+    var userStartedMoving = false;
 
     // Mélanger les images lors du clic sur le bouton de mélange
     shuffleButton.click(function() {
-        // Création d'un tableau pour stocker les images dans un ordre aléatoire
-        var images = container.children();
         var shuffledImages = images.toArray().sort(function() {
             return Math.random() - 0.5; // Mélange aléatoire des images
         });
@@ -17,13 +19,15 @@ $(document).ready(function() {
             container.append(image); // Réinsère chaque image dans le conteneur
         });
 
-        // Vérifier si les images sont dans l'ordre correct après mélange et réorganisation
-        checkOrder();
+        // Réinitialise le booléen lorsque les images sont mélangées
+        userStartedMoving = false;
     });
 
     // Activation de la fonctionnalité de glisser-déposer (drag and drop) pour les images
     container.on("dragstart", "img", function(event) {
         $(this).addClass("dragging");
+        userStartedMoving = true; // L'utilisateur a commencé à déplacer les images
+        $("#resultMessage").text("Vous avez perdu").css("color", "red");
     });
 
     container.on("dragover", function(event) {
@@ -61,13 +65,15 @@ $(document).ready(function() {
             prevIndex = index;
         });
 
-        // Affichage du message approprié en fonction de l'ordre des images
+        // Affichage du message approprié en fonction de l'ordre des images et de l'état de l'utilisateur
         var resultMessage = $("#resultMessage");
-        if (ordered) {
+        if (ordered && userStartedMoving) {
             resultMessage.text("Vous avez gagné").css("color", "green");
-        } else {
+        } else if (!ordered && userStartedMoving) {
             resultMessage.text("Vous avez perdu").css("color", "red");
         }
     }
 });
+
+
 
